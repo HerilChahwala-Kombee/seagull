@@ -6,6 +6,9 @@ import 'package:seagull/src/presentation/screens/register/register_screen.dart';
 import 'package:seagull/src/presentation/screens/splash/splash_screen.dart';
 import 'package:seagull/src/presentation/screens/welcome/welcome_screen.dart';
 
+import '../../presentation/screens/booking_confirmation/booking_confirmation.dart';
+import '../../presentation/screens/service_details/service_details.dart';
+import '../../presentation/screens/your_cart/your_cart.dart';
 import 'my_app_route_constant.dart';
 
 class AppRouter {
@@ -18,7 +21,7 @@ class AppRouter {
       ),
       GoRoute(
         path: Routes.welcome,
-        builder: (BuildContext context, GoRouterState state) => const WelcomeScreen(),
+        builder: (BuildContext context, GoRouterState state) => const BookingConfirmationPage(),
       ),
       GoRoute(
         path: Routes.login,
