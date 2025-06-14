@@ -1,102 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seagull/src/core/utils/utility.dart';
 import 'package:seagull/src/core/utils/widgets/common_button_widget.dart';
+import 'package:seagull/src/data/models/otp_model.dart';
 import 'package:seagull/src/presentation/screens/otp/widget/circular_process_timer.dart';
 import 'package:seagull/src/presentation/screens/otp/widget/otp_input_field.dart';
+import 'package:seagull/src/presentation/screens/otp/widget/otp_input_section.dart';
+import 'package:seagull/src/presentation/state_management/otp_provider.dart';
 
-class OTPVerificationScreen extends StatefulWidget {
+class OTPVerificationScreen extends ConsumerStatefulWidget {
+  const OTPVerificationScreen({super.key});
+
   @override
-  _OTPVerificationScreenState createState() => _OTPVerificationScreenState();
+  ConsumerState<OTPVerificationScreen> createState() => _OTPVerificationScreenState();
 }
 
-class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
-  List<TextEditingController> _controllers = [];
-  List<FocusNode> _focusNodes = [];
-  String _otpCode = '';
-  bool _isLoading = false;
-  bool _canResend = false;
-  final String _correctOTP = '123456'; // Demo OTP
-
+class _OTPVerificationScreenState extends ConsumerState<OTPVerificationScreen> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 6; i++) {
-      _controllers.add(TextEditingController());
-      _focusNodes.add(FocusNode());
-    }
-  }
-
-  @override
-  void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    for (var focusNode in _focusNodes) {
-      focusNode.dispose();
-    }
-    super.dispose();
-  }
-
-  void _onOTPChanged(String value, int index) {
-    setState(() {
-      if (value.isNotEmpty && index < 5) {
-        _focusNodes[index + 1].requestFocus();
-      } else if (value.isEmpty && index > 0) {
-        _focusNodes[index - 1].requestFocus();
-      }
-
-      _otpCode = _controllers.map((controller) => controller.text).join();
-    });
-  }
-
-  void _verifyOTP() async {
-    if (_otpCode.length != 6) {
-      Utility().showToast('Please enter complete OTP', context);
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    // Simulate API call
-    await Future.delayed(Duration(seconds: 2));
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (_otpCode == _correctOTP) {
-      Utility().showToast('OTP verified successfully!', context, isError: false);
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      Utility().showToast('Invalid OTP. Please try again.', context);
-      // Clear OTP fields
-      for (var controller in _controllers) {
-        controller.clear();
-      }
-      _focusNodes[0].requestFocus();
-      setState(() {
-        _otpCode = '';
-      });
-    }
-  }
-
-  void _resendOTP() {
-    setState(() {
-      _canResend = false;
-    });
-    Utility().showToast('OTP resent successfully!', context, isError: false);
-  }
-
-  void _onTimerComplete() {
-    setState(() {
-      _canResend = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(oTPNotifierProvider.notifier).startTimer();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final otpState = ref.watch(oTPNotifierProvider);
+    final otpNotifier = ref.read(oTPNotifierProvider.notifier);
+
+    // Listen to error messages
+    ref.listen<OTPState>(oTPNotifierProvider, (previous, next) {
+      if (next.errorMessage != null && next.errorMessage != previous?.errorMessage) {
+        Utility().showToast(next.errorMessage!, context);
+        // Clear error after showing toast
+        Future.microtask(() => ref.read(oTPNotifierProvider.notifier).clearError());
+      }
+    });
+
     return Scaffold(
       backgroundColor: Color(0xFF6366F1),
       appBar: AppBar(
@@ -158,43 +99,36 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         ),
                         SizedBox(height: 40),
                         // OTP Input Fields
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: List.generate(6, (index) {
-                            return OTPInputField(
-                              controller: _controllers[index],
-                              focusNode: _focusNodes[index],
-                              onChanged: (value) => _onOTPChanged(value, index),
-                              isActive: _focusNodes[index].hasFocus,
-                            );
-                          }),
-                        ),
+                        const OTPInputSection(),
                         SizedBox(height: 40),
                         // Circular Progress Timer
-                        CircularProgressTimer(duration: 45, onComplete: _onTimerComplete),
+                        CircularProgressTimer(),
                         SizedBox(height: 20),
                         // Resend Code Section
                         Column(
                           children: [
                             Text('Didn\'t receive the code?', style: TextStyle(fontSize: 14, color: Color(0xFF6B7280))),
                             SizedBox(height: 4),
-                            if (_canResend)
+                            if (otpState.canResend)
                               GestureDetector(
-                                onTap: _resendOTP,
-                                child: Text(
+                                onTap: () => otpNotifier.handleResendOTP(context),
+                                child: const Text(
                                   'Resend Code',
                                   style: TextStyle(fontSize: 14, color: Color(0xFF6366F1), fontWeight: FontWeight.w600),
                                 ),
                               )
                             else
-                              Text('Resend Code in 45s', style: TextStyle(fontSize: 14, color: Color(0xFF9CA3AF))),
+                              Text(
+                                'Resend Code in ${otpState.remainingSeconds}s',
+                                style: const TextStyle(fontSize: 14, color: Color(0xFF9CA3AF)),
+                              ),
                           ],
                         ),
                         SizedBox(height: 40),
-                        // Verify Button
+
                         CommonButtonWidget(
                           title: 'Verify',
-                          callback: _verifyOTP,
+                          callback: () => otpNotifier.handleVerifyOTP(context),
                           // isLoading: _isLoading,
                         ),
                         SizedBox(height: 20),
