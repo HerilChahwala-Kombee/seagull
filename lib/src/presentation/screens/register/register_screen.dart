@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:seagull/src/core/routers/my_app_route_constant.dart';
+import 'package:seagull/src/core/routers/routes.dart';
 import 'package:seagull/src/core/utils/utility.dart';
 import 'package:seagull/src/core/utils/widgets/common_button_widget.dart';
 import 'package:seagull/src/core/utils/widgets/common_textfield_widget.dart';
@@ -94,7 +96,7 @@ class _SignInScreenState extends State<SignInScreen> with SingleTickerProviderSt
     // Navigate to OTP screen after a short delay
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const OTPScreen()));
+        AppRouter.goRouter.push(Routes.otp);
       }
     });
   }

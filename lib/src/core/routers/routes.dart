@@ -14,7 +14,7 @@ class AppRouter {
     routes: <RouteBase>[
       GoRoute(path: Routes.splash, builder: (BuildContext context, GoRouterState state) => const SplashScreen()),
       GoRoute(path: Routes.welcome, builder: (BuildContext context, GoRouterState state) => const WelcomeScreen()),
-      GoRoute(path: Routes.login, builder: (BuildContext context, GoRouterState state) => const OTPScreen()),
+      GoRoute(path: Routes.otp, builder: (BuildContext context, GoRouterState state) => OTPVerificationScreen()),
       GoRoute(path: Routes.register, builder: (BuildContext context, GoRouterState state) => const SignInScreen()),
       GoRoute(path: Routes.booking, builder: (BuildContext context, GoRouterState state) => const BookingScreen()),
     ],
