@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/routers/my_app_route_constant.dart';
 
 class ServiceDetailsBottomButton extends StatelessWidget {
   const ServiceDetailsBottomButton({super.key});
@@ -30,6 +32,9 @@ class ServiceDetailsBottomButton extends StatelessWidget {
                   backgroundColor: Color(0xFF6366F1),
                 ),
               );
+              Future.delayed(const Duration(milliseconds: 500), () {
+                context.push(Routes.cart);
+              });
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF6366F1),

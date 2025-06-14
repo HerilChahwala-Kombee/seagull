@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/routers/my_app_route_constant.dart';
 
 // Data Models
 class CartItem {
@@ -54,18 +56,13 @@ class CartState {
   final List<CartItem> items;
   final double discount;
 
-  const CartState({
-    required this.items,
-    this.discount = 20.0,
-  });
+  const CartState({required this.items, this.discount = 20.0});
 
-  double get subtotal => items.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
+  double get subtotal =>
+      items.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
   double get total => subtotal - discount;
 
-  CartState copyWith({
-    List<CartItem>? items,
-    double? discount,
-  }) {
+  CartState copyWith({List<CartItem>? items, double? discount}) {
     return CartState(
       items: items ?? this.items,
       discount: discount ?? this.discount,
@@ -125,7 +122,9 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   void removeItem(String itemId) {
-    final updatedItems = state.items.where((item) => item.id != itemId).toList();
+    final updatedItems = state.items
+        .where((item) => item.id != itemId)
+        .toList();
     state = state.copyWith(items: updatedItems);
   }
 
@@ -167,7 +166,10 @@ final cartTotalProvider = Provider<double>((ref) {
 });
 
 final cartItemCountProvider = Provider<int>((ref) {
-  return ref.watch(cartProvider).items.fold(0, (sum, item) => sum + item.quantity);
+  return ref
+      .watch(cartProvider)
+      .items
+      .fold(0, (sum, item) => sum + item.quantity);
 });
 
 // Main Cart Page
@@ -193,11 +195,7 @@ class CartPage extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () => Navigator.of(context).pop(),
-            icon: const Icon(
-              Icons.close,
-              color: Color(0xFF666666),
-              size: 28,
-            ),
+            icon: const Icon(Icons.close, color: Color(0xFF666666), size: 28),
           ),
         ],
       ),
@@ -219,13 +217,14 @@ class CartView extends ConsumerWidget {
           child: cartItems.isEmpty
               ? const EmptyCartWidget()
               : ListView.separated(
-            padding: const EdgeInsets.all(20),
-            itemCount: cartItems.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 20),
-            itemBuilder: (context, index) {
-              return CartItemWidget(item: cartItems[index]);
-            },
-          ),
+                  padding: const EdgeInsets.all(20),
+                  itemCount: cartItems.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 20),
+                  itemBuilder: (context, index) {
+                    return CartItemWidget(item: cartItems[index]);
+                  },
+                ),
         ),
         if (cartItems.isNotEmpty) const CartSummary(),
       ],
@@ -243,11 +242,7 @@ class EmptyCartWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.shopping_cart_outlined,
-            size: 80,
-            color: Colors.grey[400],
-          ),
+          Icon(Icons.shopping_cart_outlined, size: 80, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
             'Your cart is empty',
@@ -267,10 +262,7 @@ class EmptyCartWidget extends StatelessWidget {
 class CartItemWidget extends ConsumerWidget {
   final CartItem item;
 
-  const CartItemWidget({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
+  const CartItemWidget({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -324,7 +316,8 @@ class CartItemWidget extends ConsumerWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: () => ref.read(cartProvider.notifier).removeItem(item.id),
+                      onPressed: () =>
+                          ref.read(cartProvider.notifier).removeItem(item.id),
                       icon: const Icon(
                         Icons.delete_outline,
                         color: Color(0xFF999999),
@@ -421,11 +414,7 @@ class CartItemWidget extends ConsumerWidget {
 
     return Container(
       color: color,
-      child: Icon(
-        icon,
-        size: 40,
-        color: color.withOpacity(0.7),
-      ),
+      child: Icon(icon, size: 40, color: color.withOpacity(0.7)),
     );
   }
 }
@@ -434,10 +423,7 @@ class CartItemWidget extends ConsumerWidget {
 class QuantitySelector extends ConsumerWidget {
   final CartItem item;
 
-  const  QuantitySelector({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
+  const QuantitySelector({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -445,10 +431,9 @@ class QuantitySelector extends ConsumerWidget {
       children: [
         _buildQuantityButton(
           icon: Icons.remove,
-          onTap: () => ref.read(cartProvider.notifier).updateQuantity(
-            item.id,
-            item.quantity - 1,
-          ),
+          onTap: () => ref
+              .read(cartProvider.notifier)
+              .updateQuantity(item.id, item.quantity - 1),
         ),
 
         Container(
@@ -465,10 +450,9 @@ class QuantitySelector extends ConsumerWidget {
 
         _buildQuantityButton(
           icon: Icons.add,
-          onTap: () => ref.read(cartProvider.notifier).updateQuantity(
-            item.id,
-            item.quantity + 1,
-          ),
+          onTap: () => ref
+              .read(cartProvider.notifier)
+              .updateQuantity(item.id, item.quantity + 1),
         ),
       ],
     );
@@ -487,11 +471,7 @@ class QuantitySelector extends ConsumerWidget {
           color: Colors.grey[100],
           shape: BoxShape.circle,
         ),
-        child: Icon(
-          icon,
-          size: 18,
-          color: const Color(0xFF666666),
-        ),
+        child: Icon(icon, size: 18, color: const Color(0xFF666666)),
       ),
     );
   }
@@ -526,10 +506,7 @@ class CartSummary extends ConsumerWidget {
               children: [
                 const Text(
                   'Subtotal',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF666666),
-                  ),
+                  style: TextStyle(fontSize: 16, color: Color(0xFF666666)),
                 ),
                 Text(
                   '\$${subtotal.toStringAsFixed(2)}',
@@ -549,10 +526,7 @@ class CartSummary extends ConsumerWidget {
               children: [
                 const Text(
                   'Discount',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF4CAF50),
-                  ),
+                  style: TextStyle(fontSize: 16, color: Color(0xFF4CAF50)),
                 ),
                 Text(
                   '-\$${discount.toStringAsFixed(2)}',
@@ -567,10 +541,7 @@ class CartSummary extends ConsumerWidget {
             const SizedBox(height: 16),
 
             // Divider
-            Container(
-              height: 1,
-              color: Colors.grey[200],
-            ),
+            Container(height: 1, color: Colors.grey[200]),
 
             const SizedBox(height: 16),
 
@@ -649,14 +620,13 @@ class _PromoCodeInputState extends ConsumerState<PromoCodeInput> {
                 const Expanded(
                   child: Text(
                     'Add promo code',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF999999),
-                    ),
+                    style: TextStyle(fontSize: 16, color: Color(0xFF999999)),
                   ),
                 ),
                 Icon(
-                  _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  _isExpanded
+                      ? Icons.keyboard_arrow_up
+                      : Icons.keyboard_arrow_down,
                   color: Colors.grey[400],
                 ),
               ],
@@ -676,7 +646,10 @@ class _PromoCodeInputState extends ConsumerState<PromoCodeInput> {
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(color: Colors.grey[300]!),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                   ),
                 ),
               ),
@@ -686,7 +659,9 @@ class _PromoCodeInputState extends ConsumerState<PromoCodeInput> {
                   // Handle promo code application
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Promo code "${_controller.text}" applied!'),
+                      content: Text(
+                        'Promo code "${_controller.text}" applied!',
+                      ),
                     ),
                   );
                   setState(() => _isExpanded = false);
@@ -698,7 +673,10 @@ class _PromoCodeInputState extends ConsumerState<PromoCodeInput> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: const Text('Apply', style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'Apply',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
@@ -719,15 +697,19 @@ class CheckoutButton extends ConsumerWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: itemCount > 0 ? () {
-          // Handle checkout
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Proceeding to checkout...'),
-              backgroundColor: Color(0xFF4CAF50),
-            ),
-          );
-        } : null,
+        onPressed: itemCount > 0
+            ? () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Proceeding to checkout...'),
+                    backgroundColor: Color(0xFF4CAF50),
+                  ),
+                );
+                Future.delayed(const Duration(milliseconds: 500), () {
+                  context.push(Routes.bookingConfirmation);
+                });
+              }
+            : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF5A67D8),
           disabledBackgroundColor: Colors.grey[300],

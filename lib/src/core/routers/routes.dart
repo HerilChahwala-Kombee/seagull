@@ -15,11 +15,46 @@ class AppRouter {
   static final GoRouter goRouter = GoRouter(
     initialLocation: Routes.splash,
     routes: <RouteBase>[
-      GoRoute(path: Routes.splash, builder: (BuildContext context, GoRouterState state) => const SplashScreen()),
-      GoRoute(path: Routes.welcome, builder: (BuildContext context, GoRouterState state) => const WelcomeScreen()),
-      GoRoute(path: Routes.otp, builder: (BuildContext context, GoRouterState state) => OTPVerificationScreen()),
-      GoRoute(path: Routes.register, builder: (BuildContext context, GoRouterState state) => const SignInScreen()),
-      GoRoute(path: Routes.booking, builder: (BuildContext context, GoRouterState state) => const BookingScreen()),
+      GoRoute(
+        path: Routes.splash,
+        builder: (BuildContext context, GoRouterState state) =>
+            const SplashScreen(),
+      ),
+      GoRoute(
+        path: Routes.welcome,
+        builder: (BuildContext context, GoRouterState state) =>
+            const WelcomeScreen(),
+      ),
+      GoRoute(
+        path: Routes.otp,
+        builder: (BuildContext context, GoRouterState state) =>
+            OTPVerificationScreen(),
+      ),
+      GoRoute(
+        path: Routes.register,
+        builder: (BuildContext context, GoRouterState state) =>
+            const SignInScreen(),
+      ),
+      GoRoute(
+        path: Routes.booking,
+        builder: (BuildContext context, GoRouterState state) =>
+            const BookingScreen(),
+      ),
+      GoRoute(
+        path: Routes.serviceDetails,
+        builder: (BuildContext context, GoRouterState state) =>
+            const ServiceDetailScreen(),
+      ),
+      GoRoute(
+        path: Routes.cart,
+        builder: (BuildContext context, GoRouterState state) =>
+            const CartPage(),
+      ),
+      GoRoute(
+        path: Routes.bookingConfirmation,
+        builder: (BuildContext context, GoRouterState state) =>
+            const BookingConfirmationPage(),
+      ),
     ],
   );
 }

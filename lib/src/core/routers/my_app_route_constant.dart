@@ -6,4 +6,7 @@ class Routes {
   static const String register = '/register';
   static const String welcome = '/welcome';
   static const String otp = '/otp';
+  static const String serviceDetails = '/service-details';
+  static const String cart = '/cart';
+  static const String bookingConfirmation = '/booking-confirmation';
 }
