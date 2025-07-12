@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seagull/src/presentation/screens/booking_confirmation/booking_confirmation.dart';
+import 'package:seagull/src/presentation/screens/payment/complete_payment.dart' hide BookingProgressSteps;
 
 // Data Models
 enum PaymentMethod { creditCard, paypal, digitalWallet }
@@ -1105,7 +1106,10 @@ class CompletePaymentButton extends ConsumerWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Close success dialog
-                    Navigator.of(context).pop(); // Go back to previous screen
+                    // Navigator.of(context).pop(); // Go back to previous screen
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const BookingConfirmationScreen()));
+
                     // In a real app, you might navigate to a confirmation screen
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
