@@ -6,7 +6,7 @@ part of 'otp_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$otpServiceHash() => r'9e77ce90b64e282aa7fd1122a4bbe473ab65ae77';
+String _$otpServiceHash() => r'978766b2cf5d9a8916f3ec7865892c0ad826792d';
 
 /// See also [otpService].
 @ProviderFor(otpService)
