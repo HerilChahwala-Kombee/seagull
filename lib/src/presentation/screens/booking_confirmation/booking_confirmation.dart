@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seagull/src/presentation/screens/payment/payment_screen.dart';
 
 // Data Models
 class BookingService {
@@ -56,19 +57,9 @@ class CustomerInfo {
   final String phone;
   final bool isValidated;
 
-  const CustomerInfo({
-    required this.fullName,
-    required this.email,
-    required this.phone,
-    this.isValidated = false,
-  });
+  const CustomerInfo({required this.fullName, required this.email, required this.phone, this.isValidated = false});
 
-  CustomerInfo copyWith({
-    String? fullName,
-    String? email,
-    String? phone,
-    bool? isValidated,
-  }) {
+  CustomerInfo copyWith({String? fullName, String? email, String? phone, bool? isValidated}) {
     return CustomerInfo(
       fullName: fullName ?? this.fullName,
       email: email ?? this.email,
@@ -199,19 +190,11 @@ class BookingConfirmationPage extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Color(0xFF2E5266),
-            size: 20,
-          ),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF2E5266), size: 20),
         ),
         title: const Text(
           'Booking Confirmation',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2E5266),
-          ),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -322,9 +305,7 @@ class BookingProgressSteps extends ConsumerWidget {
             label,
             style: TextStyle(
               fontSize: 12,
-              color: isActive
-                  ? const Color(0xFF5A67D8)
-                  : Colors.grey[600],
+              color: isActive ? const Color(0xFF5A67D8) : Colors.grey[600],
               fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
             ),
           ),
@@ -356,16 +337,8 @@ class ServiceCard extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: const Border(
-          left: BorderSide(color: Color(0xFF5A67D8), width: 4),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        border: const Border(left: BorderSide(color: Color(0xFF5A67D8), width: 4)),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
       ),
       child: Row(
         children: [
@@ -373,15 +346,8 @@ class ServiceCard extends ConsumerWidget {
           Container(
             width: 80,
             height: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.blue[100],
-            ),
-            child: const Icon(
-              Icons.cleaning_services,
-              size: 40,
-              color: Colors.blue,
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.blue[100]),
+            child: const Icon(Icons.cleaning_services, size: 40, color: Colors.blue),
           ),
 
           const SizedBox(width: 16),
@@ -393,22 +359,12 @@ class ServiceCard extends ConsumerWidget {
               children: [
                 Text(
                   service.title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF2E5266),
-                  ),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
                 ),
 
                 const SizedBox(height: 4),
 
-                Text(
-                  service.company,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF666666),
-                  ),
-                ),
+                Text(service.company, style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
 
                 const SizedBox(height: 8),
 
@@ -428,13 +384,7 @@ class ServiceCard extends ConsumerWidget {
                       }),
                     ),
                     const SizedBox(width: 4),
-                    Text(
-                      '${service.rating}/5',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Color(0xFF666666),
-                      ),
-                    ),
+                    Text('${service.rating}/5', style: const TextStyle(fontSize: 12, color: Color(0xFF666666))),
                   ],
                 ),
               ],
@@ -459,14 +409,9 @@ class DateTimeSection extends ConsumerWidget {
       child: Row(
         children: [
           Expanded(
-            child: _buildInfoRow(
-              Icons.calendar_today_outlined,
-              _formatDate(service.date),
-              'Change',
-                  () {
-                // Handle date change
-              },
-            ),
+            child: _buildInfoRow(Icons.calendar_today_outlined, _formatDate(service.date), 'Change', () {
+              // Handle date change
+            }),
           ),
         ],
       ),
@@ -479,23 +424,13 @@ class DateTimeSection extends ConsumerWidget {
         Icon(icon, size: 20, color: const Color(0xFF666666)),
         const SizedBox(width: 12),
         Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF2E5266),
-            ),
-          ),
+          child: Text(text, style: const TextStyle(fontSize: 16, color: Color(0xFF2E5266))),
         ),
         GestureDetector(
           onTap: onTap,
           child: Text(
             actionText,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF5A67D8),
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 14, color: Color(0xFF5A67D8), fontWeight: FontWeight.w600),
           ),
         ),
       ],
@@ -503,10 +438,7 @@ class DateTimeSection extends ConsumerWidget {
   }
 
   String _formatDate(DateTime date) {
-    const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return '${months[date.month - 1]} ${date.day}, ${date.year}';
   }
 }
@@ -524,11 +456,7 @@ class CustomerInformationSection extends ConsumerWidget {
       children: [
         const Text(
           'Customer Information',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2E5266),
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
         ),
 
         const SizedBox(height: 16),
@@ -555,11 +483,7 @@ class CustomerInformationSection extends ConsumerWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Color(0xFF666666),
-            fontWeight: FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 14, color: Color(0xFF666666), fontWeight: FontWeight.w500),
         ),
 
         const SizedBox(height: 8),
@@ -569,34 +493,19 @@ class CustomerInformationSection extends ConsumerWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: isValidated ? const Color(0xFF4CAF50) : Colors.grey[300]!,
-            ),
+            border: Border.all(color: isValidated ? const Color(0xFF4CAF50) : Colors.grey[300]!),
           ),
           child: Row(
             children: [
               Expanded(
-                child: Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF2E5266),
-                  ),
-                ),
+                child: Text(value, style: const TextStyle(fontSize: 16, color: Color(0xFF2E5266))),
               ),
               if (isValidated)
                 Container(
                   width: 20,
                   height: 20,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF4CAF50),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.check,
-                    size: 14,
-                    color: Colors.white,
-                  ),
+                  decoration: const BoxDecoration(color: Color(0xFF4CAF50), shape: BoxShape.circle),
+                  child: const Icon(Icons.check, size: 14, color: Colors.white),
                 ),
             ],
           ),
@@ -637,11 +546,7 @@ class _SpecialInstructionsSectionState extends ConsumerState<SpecialInstructions
       children: [
         const Text(
           'Special Instructions',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2E5266),
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
         ),
 
         const SizedBox(height: 16),
@@ -660,10 +565,7 @@ class _SpecialInstructionsSectionState extends ConsumerState<SpecialInstructions
                 maxLength: maxLength,
                 decoration: const InputDecoration(
                   hintText: 'Add any special requirements or notes for the service provider...',
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF999999),
-                  ),
+                  hintStyle: TextStyle(fontSize: 14, color: Color(0xFF999999)),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.all(16),
                   counterText: '',
@@ -684,27 +586,17 @@ class _SpecialInstructionsSectionState extends ConsumerState<SpecialInstructions
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.visibility,
-                      size: 16,
-                      color: Color(0xFF666666),
-                    ),
+                    const Icon(Icons.visibility, size: 16, color: Color(0xFF666666)),
                     const SizedBox(width: 8),
                     const Expanded(
                       child: Text(
                         'Your cleaner will see these instructions before arrival',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF666666),
-                        ),
+                        style: TextStyle(fontSize: 12, color: Color(0xFF666666)),
                       ),
                     ),
                     Text(
                       '${_controller.text.length}/$maxLength',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Color(0xFF666666),
-                      ),
+                      style: const TextStyle(fontSize: 12, color: Color(0xFF666666)),
                     ),
                   ],
                 ),
@@ -730,11 +622,7 @@ class PriceSummarySection extends ConsumerWidget {
       children: [
         const Text(
           'Price Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2E5266),
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
         ),
 
         const SizedBox(height: 16),
@@ -752,19 +640,10 @@ class PriceSummarySection extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Subtotal',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF666666),
-                    ),
-                  ),
+                  const Text('Subtotal', style: TextStyle(fontSize: 16, color: Color(0xFF666666))),
                   Text(
                     '\$${bookingState.subtotal.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF666666),
-                    ),
+                    style: const TextStyle(fontSize: 16, color: Color(0xFF666666)),
                   ),
                 ],
               ),
@@ -775,19 +654,10 @@ class PriceSummarySection extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Service fee',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF666666),
-                    ),
-                  ),
+                  const Text('Service fee', style: TextStyle(fontSize: 16, color: Color(0xFF666666))),
                   Text(
                     '\$${bookingState.serviceFee.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF666666),
-                    ),
+                    style: const TextStyle(fontSize: 16, color: Color(0xFF666666)),
                   ),
                 ],
               ),
@@ -795,10 +665,7 @@ class PriceSummarySection extends ConsumerWidget {
               const SizedBox(height: 16),
 
               // Divider
-              Container(
-                height: 1,
-                color: Colors.grey[200],
-              ),
+              Container(height: 1, color: Colors.grey[200]),
 
               const SizedBox(height: 16),
 
@@ -808,19 +675,11 @@ class PriceSummarySection extends ConsumerWidget {
                 children: [
                   const Text(
                     'Total',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF2E5266),
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
                   ),
                   Text(
                     '\$${bookingState.total.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF2E5266),
-                    ),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
                   ),
                 ],
               ),
@@ -842,10 +701,7 @@ class ContinueButton extends ConsumerWidget {
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       ),
       child: SafeArea(
         top: false,
@@ -854,19 +710,19 @@ class ContinueButton extends ConsumerWidget {
           child: ElevatedButton(
             onPressed: () {
               ref.read(bookingProvider.notifier).nextStep();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Continuing to payment...'),
-                  backgroundColor: Color(0xFF4CAF50),
-                ),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentScreen()));
+              // ref.read(bookingProvider.notifier).nextStep();
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   const SnackBar(
+              //     content: Text('Continuing to payment...'),
+              //     backgroundColor: Color(0xFF4CAF50),
+              //   ),
+              // );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF5A67D8),
               padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               elevation: 0,
             ),
             child: Row(
@@ -874,18 +730,10 @@ class ContinueButton extends ConsumerWidget {
               children: const [
                 Text(
                   'Continue to Payment',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
                 ),
                 SizedBox(width: 8),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: Colors.white,
-                ),
+                Icon(Icons.arrow_forward_ios, size: 16, color: Colors.white),
               ],
             ),
           ),
