@@ -1,9 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'otp_service.g.dart';
 
 @riverpod
-OTPService otpService(OtpServiceRef ref) {
+OTPService otpService(Ref ref) {
   return OTPService();
 }
 

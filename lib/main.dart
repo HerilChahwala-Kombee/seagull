@@ -6,7 +6,7 @@ import 'main_common.dart';
 void main() async {
   unawaited(
     runZonedGuarded<Future<void>>(() async {
-      unawaited(MainCommon());
+      unawaited(mainCommon());
     }, (Object error, StackTrace stack) {}),
   );
 }

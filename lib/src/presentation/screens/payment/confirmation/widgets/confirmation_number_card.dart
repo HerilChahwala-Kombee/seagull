@@ -12,9 +12,9 @@ class ConfirmationNumberCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF5A67D8).withOpacity(0.1),
+        color: const Color(0xFF5A67D8).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF5A67D8).withOpacity(0.3)),
+        border: Border.all(color: const Color(0xFF5A67D8).withValues(alpha: 0.3)),
       ),
       child: Column(
         children: [
@@ -49,7 +49,7 @@ class ConfirmationNumberCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF5A67D8).withOpacity(0.2),
+                    color: const Color(0xFF5A67D8).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: const Icon(Icons.copy, size: 16, color: Color(0xFF5A67D8)),

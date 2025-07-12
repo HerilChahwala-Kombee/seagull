@@ -5,7 +5,7 @@ import 'package:seagull/src/core/routers/my_app_route_constant.dart';
 import 'package:seagull/src/core/routers/routes.dart';
 import 'package:seagull/src/core/utils/utility.dart';
 import 'package:seagull/src/data/models/otp_model.dart';
-import 'package:seagull/src/presentation/state_management/otp_service.dart';
+import 'package:seagull/src/domain/use_cases/otp_service.dart';
 
 part 'otp_provider.g.dart';
 

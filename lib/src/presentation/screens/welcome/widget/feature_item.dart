@@ -23,7 +23,7 @@ class FeatureItem extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: ColorConstant.primary.withOpacity(0.1),
+              color: ColorConstant.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: SvgPicture.asset(icon, height: 24, width: 24, color: ColorConstant.primary),

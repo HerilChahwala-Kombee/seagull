@@ -5,7 +5,7 @@ import 'package:seagull/src/core/utils/widgets/common_button_widget.dart';
 import 'package:seagull/src/data/models/otp_model.dart';
 import 'package:seagull/src/presentation/screens/otp/widget/circular_process_timer.dart';
 import 'package:seagull/src/presentation/screens/otp/widget/otp_input_section.dart';
-import 'package:seagull/src/presentation/state_management/otp_provider.dart';
+import 'package:seagull/src/presentation/screens/otp/state/otp_provider.dart';
 
 class OTPVerificationScreen extends ConsumerStatefulWidget {
   const OTPVerificationScreen({super.key});
@@ -79,7 +79,7 @@ class _OTPVerificationScreenState extends ConsumerState<OTPVerificationScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Card(
                   elevation: 8,
-                  shadowColor: Colors.black.withOpacity(0.1),
+                  shadowColor: Colors.black.withValues(alpha: 0.1),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
@@ -168,13 +168,13 @@ class _OTPVerificationScreenState extends ConsumerState<OTPVerificationScreen> {
                 Container(
                   width: 8,
                   height: 8,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.5)),
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: 0.5)),
                 ),
                 SizedBox(width: 8),
                 Container(
                   width: 8,
                   height: 8,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.5)),
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: 0.5)),
                 ),
               ],
             ),

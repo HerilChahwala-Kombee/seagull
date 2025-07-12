@@ -13,9 +13,8 @@ String _$otpServiceHash() => r'9e77ce90b64e282aa7fd1122a4bbe473ab65ae77';
 final otpServiceProvider = AutoDisposeProvider<OTPService>.internal(
   otpService,
   name: r'otpServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$otpServiceHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$otpServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

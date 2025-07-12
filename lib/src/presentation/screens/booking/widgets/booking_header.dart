@@ -26,7 +26,7 @@ class BookingHeader extends StatelessWidget {
                     Text(
                       'Welcome back',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -74,7 +74,7 @@ class BookingHeader extends StatelessWidget {
                 Text(
                   'Current Location',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -82,7 +82,7 @@ class BookingHeader extends StatelessWidget {
                 const SizedBox(width: 4),
                 Icon(
                   Icons.keyboard_arrow_down,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                   size: 20,
                 ),
               ],

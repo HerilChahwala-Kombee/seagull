@@ -14,9 +14,10 @@ final oTPNotifierProvider =
     AutoDisposeNotifierProvider<OTPNotifier, OTPState>.internal(
       OTPNotifier.new,
       name: r'oTPNotifierProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$oTPNotifierHash,
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$oTPNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

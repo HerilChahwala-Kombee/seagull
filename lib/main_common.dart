@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:seagull/src/core/routers/routes.dart';
 
-Future<void> MainCommon() async {
+Future<void> mainCommon() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await injectDependencies();
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[

@@ -155,7 +155,7 @@ class _SignInScreenState extends State<SignInScreen> with SingleTickerProviderSt
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 4))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 20, offset: const Offset(0, 4))],
       ),
       child: const Center(
         child: Text(
@@ -172,7 +172,7 @@ class _SignInScreenState extends State<SignInScreen> with SingleTickerProviderSt
         padding: const EdgeInsets.all(16),
         child: Card(
           elevation: 8,
-          shadowColor: Colors.black.withOpacity(0.1),
+          shadowColor: Colors.black.withValues(alpha: 0.1),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Padding(
             padding: const EdgeInsets.all(24),

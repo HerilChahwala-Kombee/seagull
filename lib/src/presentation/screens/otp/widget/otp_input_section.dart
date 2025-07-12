@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seagull/src/data/models/otp_model.dart';
-import 'package:seagull/src/presentation/state_management/otp_provider.dart';
+import 'package:seagull/src/presentation/screens/otp/state/otp_provider.dart';
 import 'otp_input_field.dart';
 
 class OTPInputSection extends ConsumerStatefulWidget {

@@ -15,7 +15,7 @@ class ServiceCard extends ConsumerWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: const Border(left: BorderSide(color: Color(0xFF5A67D8), width: 4)),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 2))],
       ),
       child: Row(
         children: [
