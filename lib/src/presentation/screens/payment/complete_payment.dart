@@ -149,18 +149,45 @@ class BookingConfirmationScreen extends ConsumerWidget {
   }
 }
 
-class BookingConfirmationView extends ConsumerWidget {
+class BookingConfirmationView extends ConsumerStatefulWidget {
   const BookingConfirmationView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BookingConfirmationView> createState() => _BookingConfirmationViewState();
+}
+
+class _BookingConfirmationViewState extends ConsumerState<BookingConfirmationView> {
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with sample data after the widget is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final confirmation = ref.read(bookingConfirmationProvider);
+      if (confirmation == null) {
+        ref
+            .read(bookingConfirmationProvider.notifier)
+            .createConfirmation(
+              serviceName: 'Deep House Cleaning',
+              serviceType: 'Premium Service',
+              duration: 3,
+              date: DateTime(2024, 8, 15),
+              startTime: const TimeOfDay(hour: 10, minute: 30),
+              endTime: const TimeOfDay(hour: 13, minute: 30),
+              address: '123 Main Street, Apt 4B',
+              city: 'San Francisco',
+              state: 'CA',
+              zipCode: '94105',
+              totalPaid: 88.20,
+              paymentMethod: 'Visa',
+              cardLastFour: '4582',
+            );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final confirmation = ref.watch(bookingConfirmationProvider);
-    //
-    // if (confirmation == null) {
-    //   return const Center(
-    //     child: Text('No booking confirmation found', style: TextStyle(fontSize: 16, color: Color(0xFF666666))),
-    //   );
-    // }
 
     return Column(
       children: [
@@ -201,17 +228,17 @@ class BookingConfirmationView extends ConsumerWidget {
                 const SizedBox(height: 32),
 
                 // Confirmation Number Card
-                ConfirmationNumberCard(confirmationNumber: '0123456789'),
+                ConfirmationNumberCard(confirmationNumber: confirmation?.confirmationNumber ?? 'AB123456'),
 
                 const SizedBox(height: 32),
 
                 // Booking Summary
-                BookingSummaryCard(confirmation: null),
+                BookingSummaryCard(confirmation: confirmation ?? _getDefaultConfirmation()),
 
                 const SizedBox(height: 32),
 
                 // QR Code
-                QRCodeSection(confirmationNumber: '0123456789'),
+                QRCodeSection(confirmationNumber: confirmation?.confirmationNumber ?? 'AB123456'),
 
                 const SizedBox(height: 32),
 
@@ -229,6 +256,27 @@ class BookingConfirmationView extends ConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+
+  // Default confirmation data fallback
+  BookingConfirmation _getDefaultConfirmation() {
+    return BookingConfirmation(
+      confirmationNumber: 'AB123456',
+      serviceName: 'Deep House Cleaning',
+      serviceType: 'Premium Service',
+      duration: 3,
+      date: DateTime(2024, 8, 15),
+      startTime: const TimeOfDay(hour: 10, minute: 30),
+      endTime: const TimeOfDay(hour: 13, minute: 30),
+      address: '123 Main Street, Apt 4B',
+      city: 'San Francisco',
+      state: 'CA',
+      zipCode: '94105',
+      totalPaid: 88.20,
+      paymentMethod: 'Visa',
+      cardLastFour: '4582',
+      createdAt: DateTime.now(),
     );
   }
 }
@@ -367,9 +415,9 @@ class ConfirmationNumberCard extends StatelessWidget {
 
 // Booking Summary Card
 class BookingSummaryCard extends StatelessWidget {
-  final BookingConfirmation? confirmation;
+  final BookingConfirmation confirmation;
 
-  const BookingSummaryCard({Key? key, this.confirmation}) : super(key: key);
+  const BookingSummaryCard({Key? key, required this.confirmation}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -393,7 +441,7 @@ class BookingSummaryCard extends StatelessWidget {
 
           // Service Name
           Text(
-            confirmation?.serviceName ?? '',
+            confirmation.serviceName,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF2E5266)),
           ),
 
@@ -407,11 +455,11 @@ class BookingSummaryCard extends StatelessWidget {
               const Icon(Icons.star, size: 16, color: Color(0xFF5A67D8)),
               const SizedBox(width: 8),
               Text(
-                confirmation?.serviceType ?? '',
+                confirmation.serviceType,
                 style: const TextStyle(fontSize: 14, color: Color(0xFF5A67D8), fontWeight: FontWeight.w500),
               ),
               const SizedBox(width: 16),
-              Text('${confirmation?.duration} hours', style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
+              Text('${confirmation.duration} hours', style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
             ],
           ),
 
@@ -422,10 +470,7 @@ class BookingSummaryCard extends StatelessWidget {
             children: [
               const Icon(Icons.calendar_today, size: 16, color: Color(0xFF666666)),
               const SizedBox(width: 8),
-              Text(
-                _formatDate(confirmation?.date ?? DateTime.now()),
-                style: const TextStyle(fontSize: 14, color: Color(0xFF666666)),
-              ),
+              Text(_formatDate(confirmation.date), style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
             ],
           ),
 
@@ -435,7 +480,7 @@ class BookingSummaryCard extends StatelessWidget {
             children: [
               const Icon(Icons.access_time, size: 16, color: Color(0xFF666666)),
               const SizedBox(width: 8),
-              Text(confirmation?.timeRange ?? '', style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
+              Text(confirmation.timeRange, style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
             ],
           ),
 
@@ -452,11 +497,11 @@ class BookingSummaryCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      confirmation?.address ?? '',
+                      confirmation.address,
                       style: const TextStyle(fontSize: 14, color: Color(0xFF666666), fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      '${confirmation?.city}, ${confirmation?.state} ${confirmation?.zipCode}',
+                      '${confirmation.city}, ${confirmation.state} ${confirmation.zipCode}',
                       style: const TextStyle(fontSize: 14, color: Color(0xFF666666)),
                     ),
                   ],
@@ -472,10 +517,10 @@ class BookingSummaryCard extends StatelessWidget {
             children: [
               const Icon(Icons.credit_card, size: 16, color: Color(0xFF666666)),
               const SizedBox(width: 8),
-              Text('Total Paid', style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
+              const Text('Total Paid', style: TextStyle(fontSize: 14, color: Color(0xFF666666))),
               const Spacer(),
               Text(
-                '\$${confirmation?.totalPaid.toStringAsFixed(2)}',
+                '\$${confirmation.totalPaid.toStringAsFixed(2)}',
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF5A67D8)),
               ),
             ],
@@ -488,16 +533,13 @@ class BookingSummaryCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(color: const Color(0xFF2196F3), borderRadius: BorderRadius.circular(4)),
-                child: const Text(
-                  'Visa',
-                  style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w600),
+                child: Text(
+                  confirmation.paymentMethod,
+                  style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w600),
                 ),
               ),
               const SizedBox(width: 8),
-              Text(
-                '•••• ${confirmation?.cardLastFour}',
-                style: const TextStyle(fontSize: 14, color: Color(0xFF666666)),
-              ),
+              Text('•••• ${confirmation.cardLastFour}', style: const TextStyle(fontSize: 14, color: Color(0xFF666666))),
             ],
           ),
         ],
@@ -692,7 +734,7 @@ extension PaymentScreenExtension on ConsumerWidget {
           serviceName: 'Deep House Cleaning',
           serviceType: 'Premium Service',
           duration: 3,
-          date: DateTime(2023, 8, 15),
+          date: DateTime(2024, 8, 15),
           startTime: const TimeOfDay(hour: 10, minute: 30),
           endTime: const TimeOfDay(hour: 13, minute: 30),
           address: '123 Main Street, Apt 4B',
