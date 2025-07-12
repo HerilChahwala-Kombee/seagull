@@ -174,7 +174,7 @@ final cartItemCountProvider = Provider<int>((ref) {
 
 // Main Cart Page
 class CartPage extends ConsumerWidget {
-  const CartPage({Key? key}) : super(key: key);
+  const CartPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -205,7 +205,7 @@ class CartPage extends ConsumerWidget {
 }
 
 class CartView extends ConsumerWidget {
-  const CartView({Key? key}) : super(key: key);
+  const CartView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -234,7 +234,7 @@ class CartView extends ConsumerWidget {
 
 // Empty Cart Widget
 class EmptyCartWidget extends StatelessWidget {
-  const EmptyCartWidget({Key? key}) : super(key: key);
+  const EmptyCartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -262,7 +262,7 @@ class EmptyCartWidget extends StatelessWidget {
 class CartItemWidget extends ConsumerWidget {
   final CartItem item;
 
-  const CartItemWidget({Key? key, required this.item}) : super(key: key);
+  const CartItemWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -423,7 +423,7 @@ class CartItemWidget extends ConsumerWidget {
 class QuantitySelector extends ConsumerWidget {
   final CartItem item;
 
-  const QuantitySelector({Key? key, required this.item}) : super(key: key);
+  const QuantitySelector({super.key, required this.item});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -479,7 +479,7 @@ class QuantitySelector extends ConsumerWidget {
 
 // Cart Summary Widget
 class CartSummary extends ConsumerWidget {
-  const CartSummary({Key? key}) : super(key: key);
+  const CartSummary({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -586,7 +586,7 @@ class CartSummary extends ConsumerWidget {
 
 // Promo Code Input Widget
 class PromoCodeInput extends ConsumerStatefulWidget {
-  const PromoCodeInput({Key? key}) : super(key: key);
+  const PromoCodeInput({super.key});
 
   @override
   ConsumerState<PromoCodeInput> createState() => _PromoCodeInputState();
@@ -688,7 +688,7 @@ class _PromoCodeInputState extends ConsumerState<PromoCodeInput> {
 
 // Checkout Button Widget
 class CheckoutButton extends ConsumerWidget {
-  const CheckoutButton({Key? key}) : super(key: key);
+  const CheckoutButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -7,7 +7,7 @@ class FeatureItem extends StatelessWidget {
   final String title;
   final String description;
 
-  const FeatureItem({Key? key, required this.icon, required this.title, required this.description}) : super(key: key);
+  const FeatureItem({super.key, required this.icon, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {

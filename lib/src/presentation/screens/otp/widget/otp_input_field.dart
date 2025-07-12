@@ -8,12 +8,12 @@ class OTPInputField extends StatelessWidget {
   final bool isActive;
 
   const OTPInputField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.focusNode,
     required this.onChanged,
     this.isActive = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

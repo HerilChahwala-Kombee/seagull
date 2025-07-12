@@ -5,15 +5,15 @@ import 'package:seagull/src/presentation/state_management/otp_provider.dart';
 import 'otp_input_field.dart';
 
 class OTPInputSection extends ConsumerStatefulWidget {
-  const OTPInputSection({Key? key}) : super(key: key);
+  const OTPInputSection({super.key});
 
   @override
   ConsumerState<OTPInputSection> createState() => _OTPInputSectionState();
 }
 
 class _OTPInputSectionState extends ConsumerState<OTPInputSection> {
-  List<TextEditingController> _controllers = [];
-  List<FocusNode> _focusNodes = [];
+  final List<TextEditingController> _controllers = [];
+  final List<FocusNode> _focusNodes = [];
 
   @override
   void initState() {

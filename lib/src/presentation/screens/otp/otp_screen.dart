@@ -4,7 +4,6 @@ import 'package:seagull/src/core/utils/utility.dart';
 import 'package:seagull/src/core/utils/widgets/common_button_widget.dart';
 import 'package:seagull/src/data/models/otp_model.dart';
 import 'package:seagull/src/presentation/screens/otp/widget/circular_process_timer.dart';
-import 'package:seagull/src/presentation/screens/otp/widget/otp_input_field.dart';
 import 'package:seagull/src/presentation/screens/otp/widget/otp_input_section.dart';
 import 'package:seagull/src/presentation/state_management/otp_provider.dart';
 

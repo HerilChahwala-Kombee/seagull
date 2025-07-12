@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:seagull/i10/app_localizations.dart';
 import 'package:seagull/src/core/routers/routes.dart';
 
 Future<void> MainCommon() async {

@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:seagull/i10/app_localizations.dart';
 
 import 'main_common.dart';
 

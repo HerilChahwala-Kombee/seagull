@@ -5,13 +5,12 @@ import 'package:seagull/src/core/routers/routes.dart';
 import 'package:seagull/src/core/utils/utility.dart';
 import 'package:seagull/src/core/utils/widgets/common_button_widget.dart';
 import 'package:seagull/src/core/utils/widgets/common_textfield_widget.dart';
-import 'package:seagull/src/presentation/screens/otp/otp_screen.dart';
 import 'package:seagull/src/presentation/screens/register/widget/social_button_widget.dart';
 
 enum SignInType { email, mobile }
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({super.key});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();

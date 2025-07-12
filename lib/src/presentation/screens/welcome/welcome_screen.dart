@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:seagull/src/core/routers/routes.dart';
-import '../../../core/constants/asset_constant.dart';
-import '../../../core/constants/color_constant.dart';
-import '../../../core/constants/app_string_constant.dart';
-import '../../../core/constants/dimension_constant.dart';
 import '../../../core/routers/my_app_route_constant.dart';
-import 'widget/feature_item.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
                       Row(
                         children: [
                           // Signal bars
-                          Container(
+                          SizedBox(
                             width: 18,
                             height: 12,
                             child: Row(
@@ -163,7 +156,7 @@ class WelcomeScreen extends StatelessWidget {
                   // const Spacer(),
 
                   // Sign Up button
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 56,
                     child: ElevatedButton(

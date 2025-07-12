@@ -1,18 +1,17 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seagull/src/presentation/state_management/otp_provider.dart';
 
 class CircularProgressTimer extends ConsumerWidget {
-  const CircularProgressTimer({Key? key}) : super(key: key);
+  const CircularProgressTimer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final otpState = ref.watch(oTPNotifierProvider);
     final progress = otpState.remainingSeconds / 45.0;
 
-    return Container(
+    return SizedBox(
       width: 80,
       height: 80,
       child: Stack(
